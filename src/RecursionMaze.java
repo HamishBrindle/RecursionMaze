@@ -4,12 +4,28 @@ import java.util.Random;
  * @author Hamish
  * @date 2017-04-08
  */
-public class Series {
+public class RecursionMaze {
 
+    /*
+    Number of columns and rows in the maze.
+     */
     private static int squares = 12;
+
+    /*
+    Number of valid pathways through the maze.
+     */
     private static int pathCount = 0;
+
+    /*
+    Number of invalid squares in the maze (higher numbers lower success rate).
+     */
     private static int invalidSquares = 30;
 
+    /**
+     * Driver.
+     *
+     * @param argv
+     */
     public static void main(String[] argv) {
 
         boolean[][] grid = createGrid(squares);
@@ -18,14 +34,22 @@ public class Series {
         printGrid(grid);
         countPathways(grid, 0, 0, paths);
 
-        System.out.println("Number of valid pathways: " + getPaths());
+        System.out.println("Number of valid pathways: " + pathCount);
 
     }
 
+    /**
+     * Recursively progress through the maze.
+     * @param grid  The maze being traversed.
+     * @param row   Row.
+     * @param col   Column.
+     * @param paths Memoization storage.
+     * @return Recursive method.
+     */
     private static int countPathways(boolean grid[][], int row, int col, int[][] paths) {
 
         if (!validSquare(grid, row, col)) {
-             return 0;
+            return 0;
         }
 
         // Check for end of grid.
@@ -39,17 +63,37 @@ public class Series {
             paths[row][col] = countPathways(grid, row + 1, col, paths) + countPathways(grid, row, col + 1, paths);
         }
 
-         return paths[row][col];
+        return paths[row][col];
     }
 
+    /**
+     * Validate square within the maze.
+     * @param grid  The maze being traversed.
+     * @param row   Row.
+     * @param col   Column.
+     * @return True if valid square, else false.
+     */
     private static boolean validSquare(boolean[][] grid, int row, int col) {
         return row < squares && col < squares && grid[row][col];
     }
 
+    /**
+     * Validate a successful finish at the end of the maze.
+     * @param grid  The maze being traversed.
+     * @param row   Row.
+     * @param col   Column.
+     * @return True if valid square, else false.
+     */
     private static boolean lastSquare(boolean[][] grid, int row, int col) {
         return (row == squares - 1 && col == squares - 1);
     }
 
+    /**
+     * Create a maze with randomized pathways to the finish. Number of invalid squares defined by
+     * 'invalidSquares' variable.
+     * @param size  The dimensions of the maze.
+     * @return A maze with dimension of 'size' instance variable.
+     */
     private static boolean[][] createGrid(int size) {
 
         boolean[][] grid = new boolean[size][size];
@@ -57,7 +101,7 @@ public class Series {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                    grid[i][j] = true;
+                grid[i][j] = true;
             }
         }
 
@@ -77,7 +121,10 @@ public class Series {
         return grid;
     }
 
-    // 'x' is false square
+    /**
+     * Prints a simple rendition of the randomly generated maze.
+     * @param grid  The maze being printed.
+     */
     private static void printGrid(boolean[][] grid) {
         for (int i = 0; i < grid.length; i++) {
             System.out.print("|");
@@ -91,7 +138,4 @@ public class Series {
         }
     }
 
-    public static int getPaths() {
-        return pathCount;
-    }
 }
