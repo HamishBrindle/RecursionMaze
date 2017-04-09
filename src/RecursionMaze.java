@@ -28,10 +28,14 @@ public class RecursionMaze {
      */
     public static void main(String[] argv) {
 
+        // Create the maze and memoization store.
         boolean[][] grid = createGrid(squares);
         int[][] paths = new int[squares][squares];
 
+        // Display the grid in console.
         printGrid(grid);
+
+        // Engage recursive function; traverse through maze.
         countPathways(grid, 0, 0, paths);
 
         System.out.println("Number of valid pathways: " + pathCount);
