@@ -20,7 +20,7 @@ public class Series {
 
         System.out.println("Number of valid pathways: " + getPaths());
 
-    } 
+    }
 
     private static int countPathways(boolean grid[][], int row, int col, int[][] paths) {
 
