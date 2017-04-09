@@ -3,7 +3,7 @@ import java.util.Random;
 /**
  * An exercise in recursion. Prints a maze to be navigated moving only down and to the right and returns
  * the number of times the program was able to reach the far bottom-corner (a maximum times of 2 from the
- * looks of it.
+ * looks of it).
  *
  * I'd like to get all the permutations of the ways to get there but I couldn't quite figure it out. I'm studying
  * for finals so I decided to move on.
