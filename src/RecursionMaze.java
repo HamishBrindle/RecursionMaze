@@ -16,7 +16,7 @@ public class RecursionMaze {
     /*
     Number of columns and rows in the maze.
      */
-    private static int squares = 12;
+    private static int squares = 3;
 
     /*
     Number of valid pathways through the maze.
@@ -26,7 +26,7 @@ public class RecursionMaze {
     /*
     Number of invalid squares in the maze (higher numbers lower success rate).
      */
-    private static int invalidSquares = 50;
+    private static int invalidSquares = 0;
 
     /**
      * Driver.
@@ -60,19 +60,22 @@ public class RecursionMaze {
     private static int countPathways(boolean grid[][], int row, int col, int[][] paths) {
 
         if (!validSquare(grid, row, col)) {
+            pathCount--;
             return 0;
         }
 
         // Check for end of grid.
         if (lastSquare(grid, row, col)) {
-            pathCount++;
             return 1;
         }
 
         // Memoization; check if computation has been done already.
         if (paths[row][col] == 0) {
             paths[row][col] = countPathways(grid, row + 1, col, paths) + countPathways(grid, row, col + 1, paths);
+            pathCount += paths[row][col];
         }
+
+        pathCount--;
 
         return paths[row][col];
     }
